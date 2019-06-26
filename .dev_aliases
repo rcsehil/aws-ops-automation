@@ -1,0 +1,2 @@
+alias dsh='docker run -it -v $PWD:/workspace -v ~/.aws:/root/.aws --user root ops-automation'
+alias sdsh='sudo docker run -it -v $PWD:/workspace -v ~/.aws:/root/.aws --user root ops-automation'
