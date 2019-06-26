@@ -21,7 +21,6 @@ describe 'lambda_handler' do
     }
     expect(instance).to receive(:start)
     expect(instance).to receive(:wait_until_running)
-    expect(instance).to receive(:state).and_return(double(name: 'running'))
 		lambda_handler(event: event, context: {})
 	end
 
