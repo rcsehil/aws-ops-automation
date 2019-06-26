@@ -23,7 +23,7 @@ On Ubuntu:
 
 Edit the code, then go to the terminal and do
 		
-		AWS_PROFILE=YOUR_PROFILE_NAME ruby instance_manager.rb
+	AWS_PROFILE=YOUR_PROFILE_NAME ruby instance_manager.rb
 
 Running specs
 
