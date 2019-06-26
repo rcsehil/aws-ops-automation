@@ -7,19 +7,19 @@ I am triggering the function with time based CloudWatch rules to downsize or ups
 
 Build the docker image. You only need to do it once.
 
-		docker build . -t ops-automation
+	docker build . -t ops-automation
 
 On OSX:
 
-		# On the host shell
-		. .dev_aliases
-		dsh
+	# On the host shell
+	. .dev_aliases
+	dsh
 
 On Ubuntu:
 
-		# On the host shell
-		. .dev_aliases
-		sdsh
+	# On the host shell
+	. .dev_aliases
+	sdsh
 
 Edit the code, then go to the terminal and do
 		
@@ -33,11 +33,11 @@ Running specs
 
 Resize event:
 
-		{
-			"instance_type": "t3.small", 
-			"instance_id": "i-12345", 
-			"action": "resize"
-		}
+	{
+		"instance_type": "t3.small", 
+		"instance_id": "i-12345", 
+		"action": "resize"
+	}
 
 Start event:
 
