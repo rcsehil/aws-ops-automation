@@ -27,7 +27,7 @@ Edit the code, then go to the terminal and do
 
 Running specs
 
-    spec
+    rspec
 
 ## Configuring the lambda function
 

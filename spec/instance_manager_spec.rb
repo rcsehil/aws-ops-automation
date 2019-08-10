@@ -42,22 +42,12 @@ describe 'lambda_handler' do
     }
     expect(instance).to receive(:stop)
     expect(instance).to receive(:wait_until_stopped)
-    expect(instance).to receive(:instance_type)
+    expect(instance).to receive(:instance_type).twice.and_return('t2.small')
+    expect(instance).to receive(:instance_type).and_return('t3.small')
     expect(instance).to receive(:modify_attribute)
+    allow(instance).to receive(:instance_id)
     expect(instance).to receive(:start)
     expect(instance).to receive(:wait_until_running)
     lambda_handler(event: event, context: {})
-  end
-
-  it 'does not resize if the new instance type is the same' do
-    event = {
-      'instance_type' => 't3.small',
-      'instance_id' => 'i-1234',
-      'action' => RESIZE
-    }
-    expect(instance).to receive(:instance_type).and_return('t3.small')
-    expect do
-      lambda_handler(event: event, context: {})
-    end.to output("Found instance: i-1234.\nInstance type is not changing, not doing anything.\n").to_stdout
   end
 end

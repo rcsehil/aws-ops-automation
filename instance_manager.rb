@@ -12,7 +12,7 @@ def lambda_handler(event:, context:)
   puts "Found instance: #{event['instance_id']}."
   action = event['action']
   if action == RESIZE
-    resize(instance, event['instance_type'])
+    resize(instance, event['instance_type'], ec2)
   elsif action == START
     start(instance)
   elsif action == STOP
@@ -24,14 +24,16 @@ def lambda_handler(event:, context:)
   { result: instance.state.name }
 end
 
-def resize(instance, instance_type)
-  if instance.instance_type == instance_type
-    puts 'Instance type is not changing, not doing anything.'
-    return
-  end
+def resize(instance, instance_type, ec2)
   stop(instance) if instance.state.name == RUNNING
   puts "Setting instance type to #{instance_type}."
   instance.modify_attribute(instance_type: Aws::EC2::Types::AttributeValue.new(value: instance_type))
+  instance = ec2.instance(instance.instance_id)
+  while instance.instance_type != instance_type do
+    puts "Instance type did not change properly. Current instance type: #{instance.instance_type}. Desired type: #{instance_type}. Sleeping."
+    sleep 5
+    instance = ec2.instance(instance.instance_id)
+  end
   start(instance)
   puts "State: #{instance.state}."
 end
